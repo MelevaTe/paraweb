@@ -1,0 +1,30 @@
+.button {
+    width: 33%;
+    min-width: 169px;
+    min-height: 46px;
+    background-color: #3452B4;
+    text-transform: uppercase;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+    margin-block-start: 16px;
+}
+
+
+.button:hover {
+    background: #1E378B;
+}
+
+.button:active {
+    background: #5B76CF;
+}
+
+.button:disabled {
+    background: #E1E4EB;
+    color: #8B8F98;
+
+}

@@ -1,0 +1,76 @@
+.imgWrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+}
+
+
+.img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+}
+
+.fromWrapper {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50%;
+}
+
+.Column {
+    flex-direction: column;
+}
+
+.Form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.headerText {
+    max-width: 340px;
+    font-family: Inter , sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 46px;
+    text-align: left;
+}
+
+.mainText {
+    max-width: 340px;
+    font-family: Inter , sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    margin-block-start: 24px;
+}
+
+.buttonMargin {
+    max-width: 235px;
+    margin-inline-end: 110px;
+}
+
+.buttonSelf {
+    align-self: flex-start;
+}
+
+@media (width <= 760px) {
+    @media (max-width: 760px) {
+        .imgWrapper {
+            display: none;
+        }
+
+        .fromWrapper {
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+
+}
+

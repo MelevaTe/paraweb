@@ -1,0 +1,12 @@
+@import "reset.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+.app {
+    font-family: Inter, sans-serif;
+    background-color: #fff;
+    min-height: 100vh;
+    display: flex;
+    height: 100vh;
+    position: relative;
+}
