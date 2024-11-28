@@ -56,10 +56,14 @@
 }
 
 .selectErrorText {
-    opacity: 0;
+    opacity: 1;
     color: #E03A15;
     font-size: 12px;
     line-height: 18px;
+}
+
+.opacityZero {
+    opacity: 0;
 }
 
 .selectError {

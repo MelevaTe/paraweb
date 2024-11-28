@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import cls from '../MySelect/MySelect.module.css';
-import { formContext } from '../../formContext';
+import {formContext} from '../../formContext';
 
 interface MySelectProps {
     field_name: string;
@@ -19,7 +19,7 @@ const MySelect: React.FC<MySelectProps> = ({
                                                field_value,
                                                field_error,
                                            }) => {
-    const { handleChange, handleBlur, getDirty, errors } = useContext(formContext);
+    const {handleChange, handleBlur, getDirty, errors} = useContext(formContext);
 
     const isDirty = getDirty(field_name);
     const hasError = isDirty && (!field_value || field_value === '') || (field_error || errors[field_name]);
@@ -57,13 +57,12 @@ const MySelect: React.FC<MySelectProps> = ({
                 ))}
             </select>
 
-            {hasError && (
-                <span className={cls.selectErrorText}>
-                    {field_error || 'Пожалуйста, выберите значение'}
-                </span>
-            )}
+            <span className={`${cls.selectErrorText} ${hasError ? '' : cls.opacityZero}`}>
+                {hasError ? errors[field_name] : 'текст по умолчанию'}
+            </span>
         </div>
     );
 };
+
 
 export default MySelect;
