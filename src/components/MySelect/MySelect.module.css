@@ -18,6 +18,7 @@
     font-size: 16px;
     line-height: 24px;
     text-align: left;
+    cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -51,6 +52,7 @@
     border: 1px solid #C0C6D1;
     color: #8B8F98;
     background-color: #E1E4EB;
+    cursor: not-allowed;
 }
 
 .selectErrorText {

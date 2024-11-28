@@ -11,6 +11,7 @@
     line-height: 18px;
     text-transform: uppercase;
     background-color: #3452B4;
+    cursor: pointer;
 }
 
 
@@ -25,4 +26,5 @@
 .button:disabled {
     color: #8B8F98;
     background: #E1E4EB;
+    cursor: not-allowed;
 }

@@ -24,6 +24,7 @@
     border: 1px solid #C0C6D1;
     border-radius: 2px;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 .textchecbox {
@@ -49,6 +50,7 @@
 
 .checkboxLink:disabled {
     color: #8B8F98;
+    cursor: not-allowed;
 }
 
 .checkSpan:hover {
