@@ -12,6 +12,14 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
         },
     }
 
+    const fontLoader = {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: {
+            filename: 'static/fonts/[name].[hash:8][ext]',
+        },
+    };
+
     const cssLoader = {
         test: /\.css$/i,
         use: [
@@ -39,6 +47,7 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
 
     return [
         fileLoader,
+        fontLoader,
         typescriptLoader,
         cssLoader,
     ]

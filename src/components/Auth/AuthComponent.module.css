@@ -1,23 +1,23 @@
 .imgWrapper {
     position: fixed;
-    left: 0;
     top: 0;
     bottom: 0;
+    left: 0;
     width: 50%;
 }
 
 
 .img {
+    object-fit: cover;
     inline-size: 100%;
     block-size: 100%;
-    object-fit: cover;
 }
 
 .fromWrapper {
-    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 50%;
     margin-left: 50%;
 }
 
@@ -27,28 +27,26 @@
 
 .Form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
 .headerText {
     max-width: 340px;
-    font-family: Inter , sans-serif;
-    font-size: 36px;
     font-weight: 600;
+    font-size: 36px;
     line-height: 46px;
     text-align: left;
 }
 
 .mainText {
     max-width: 340px;
-    font-family: Inter , sans-serif;
-    font-size: 16px;
+    margin-block-start: 24px;
     font-weight: 400;
+    font-size: 16px;
     line-height: 24px;
     text-align: left;
-    margin-block-start: 24px;
 }
 
 .buttonMargin {
@@ -65,7 +63,6 @@
         .imgWrapper {
             display: none;
         }
-
         .fromWrapper {
             width: 100%;
             margin-left: 0;

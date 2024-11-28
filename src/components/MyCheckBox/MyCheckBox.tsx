@@ -40,7 +40,7 @@ const MyCheckBox: React.FC<MyCheckBoxProps> = ({
             </label>
             <p className={cls.textchecbox}>
                 {field_text}
-                <a href={field_link_href}>{field_link_text}</a>
+                <a className={cls.checkboxLink} href={field_link_href}>{field_link_text}</a>
             </p>
         </div>
     );

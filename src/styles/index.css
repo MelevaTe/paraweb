@@ -1,12 +1,22 @@
 @import "reset.css";
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import "../assets/fonts/fonts.css";
+
 
 
 .app {
-    font-family: Inter, sans-serif;
-    background-color: #fff;
-    min-height: 100vh;
+    position: relative;
     display: flex;
     height: 100vh;
-    position: relative;
+    min-height: 100vh;
+    font-family: 'Inter-Variable', sans-serif;
+    font-weight: 400;
+    background-color: #fff;
+}
+
+label {
+    color: #8B8F98;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
 }
