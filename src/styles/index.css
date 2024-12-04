@@ -1,13 +1,12 @@
 @import "reset.css";
 @import "../assets/fonts/fonts.css";
 
-
-
 .app {
     position: relative;
     display: flex;
     height: 100vh;
     min-height: 100vh;
+    overflow: hidden;
     font-family: 'Inter-Variable', sans-serif;
     font-weight: 400;
     background-color: #fff;
@@ -19,4 +18,12 @@ label {
     font-size: 14px;
     line-height: 20px;
     text-align: left;
+}
+
+@media (width <= 710px) {
+    .app {
+        background-image: url("../static/rectangle.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 }

@@ -14,6 +14,7 @@ interface FormField {
     type?: string;
     label: string;
     required: boolean;
+    placeholder?: string;
     name: string;
     options?: FieldOption[];
     value: string | boolean;
@@ -29,7 +30,7 @@ interface ElementProps {
 const Element: React.FC<ElementProps> = ({ field }) => {
     const { errors } = useContext(formContext);
 
-    const { tag, type, label, required, name, options, value, field_text, field_link_text, field_link_href } = field;
+    const { tag, type, label, required, placeholder, name, options, value, field_text, field_link_text, field_link_href } = field;
 
     switch (tag) {
         case 'input':
@@ -38,6 +39,7 @@ const Element: React.FC<ElementProps> = ({ field }) => {
                     field_type={type || 'text'}
                     field_label={label}
                     field_required={required}
+                    field_placeholder={placeholder}
                     field_name={name}
                     field_value={value as string}
                     field_error={errors[name]}

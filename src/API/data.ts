@@ -13,3 +13,15 @@ export const getFormData = async (): Promise<FormField[]> => {
         throw error;
     }
 };
+
+export const submitForm = async (formData: Record<string, string | boolean>) => {
+    try {
+        const mock = initializeMockServer();
+        const response = await axios.post('/api/form/submit', formData);
+        mock.restore();
+        return response.data;
+    } catch (error) {
+        console.error('Error submitting form data:', error);
+        throw error;
+    }
+};

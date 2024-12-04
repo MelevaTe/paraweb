@@ -8,9 +8,10 @@ const setupMockServer = (): AxiosMockAdapter => {
     const mockData: FormField[] = [
         {
             tag: "input",
-            type: "text",
+            type: "tel",
             label: "Номер телефона",
             required: true,
+            placeholder: "Ваш номер телефона",
             name: "phone",
             value: "",
             error: "Неверный формат номера телефона",
@@ -21,6 +22,7 @@ const setupMockServer = (): AxiosMockAdapter => {
             type: "password",
             label: "Пароль",
             required: false,
+            placeholder: "Пароль",
             name: "password",
             value: "",
         },
@@ -29,6 +31,7 @@ const setupMockServer = (): AxiosMockAdapter => {
             type: "password",
             label: "Повторите пароль",
             required: false,
+            placeholder: "Повторите пароль",
             name: "confirmpassword",
             value: "",
         },
@@ -59,6 +62,13 @@ const setupMockServer = (): AxiosMockAdapter => {
     ];
 
     mock.onGet("/api/form").reply(200, mockData);
+
+    mock.onPost('/api/form/submit').reply((config) => {
+        const submittedData = JSON.parse(config.data);
+        console.log('Данные, отправленные на сервер:', submittedData);
+        return [200, { message: 'Форма успешно отправлена!' }];
+    });
+
     return mock;
 };
 

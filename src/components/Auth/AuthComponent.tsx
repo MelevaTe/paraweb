@@ -4,21 +4,10 @@ import MyButton from '../MyButton/MyButton';
 import Element from '../FormFields/element';
 import { formContext } from '../../formContext';
 import { getFormData } from '../../API/data';
+import { submitForm } from '../../API/data';
 import Loader from "../Loader/Loader";
-import img from '../../static/rectangle.jpg'
-
-
-interface Field {
-    name: string;
-    type: string;
-    value: string | boolean;
-    required: boolean;
-    pattern?: string;
-    error?: string;
-    options?: { option_label: string }[];
-    tag: 'input' | 'select' | 'checkbox';
-    label: string;
-}
+import { handleBlur, validateField } from '../../../validations/validation';
+import { FormField } from '../../types/form.types';
 
 interface Errors {
     [key: string]: string;
@@ -29,7 +18,7 @@ interface DirtyFields {
 }
 
 const AuthComponent: React.FC = () => {
-    const [elements, setElements] = useState<Field[] | null>(null);
+    const [elements, setElements] = useState<FormField[] | null>(null);
     const [showMessage, setShowMessage] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState<Errors>({});
@@ -55,8 +44,6 @@ const AuthComponent: React.FC = () => {
         fetchFormData();
     }, []);
 
-
-
     const handleChange = (id: string, event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         if (elements) {
             const newElements = [...elements];
@@ -70,48 +57,21 @@ const AuthComponent: React.FC = () => {
                         field.value = (event.target as HTMLInputElement).value;
                         break;
                 }
-                validateField(id, field.value);
+                validateField(id, field.value, elements, errors, setErrors);
             }
             setElements(newElements);
             setDirtyFields({ ...dirtyFields, [id]: true });
         }
     };
 
-    const handleBlur = (id: string) => {
-        const field = elements?.find((f) => f.name === id);
-        if (field) {
-            validateField(id, field.value);
-            setDirtyFields({ ...dirtyFields, [id]: true });
-        }
-    };
-
-    const validateField = (name: string, value: string | boolean) => {
-        let error = '';
-        const field = elements?.find((f) => f.name === name);
-        if (field) {
-            if (field.required && !value) {
-                error = 'Это поле обязательно для заполнения';
-            } else if (field.pattern) {
-                const regex = new RegExp(field.pattern);
-                if (!regex.test(value.toString())) {
-                    error = field.error || 'Неверный формат';
-                }
-            }
-        }
-        setErrors({ ...errors, [name]: error });
-    };
-
-    useEffect(() => {
-        setFormValid(Object.values(errors).every((err) => !err));
-    }, [errors]);
-
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
         let isValid = true;
+
         if (elements) {
             elements.forEach((field) => {
-                validateField(field.name, field.value);
+                validateField(field.name, field.value, elements, errors, setErrors);
                 if (errors[field.name]) {
                     isValid = false;
                 }
@@ -121,25 +81,43 @@ const AuthComponent: React.FC = () => {
         if (!isValid) {
             return;
         }
+
         setIsLoading(true);
 
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Имитация задержки
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        setShowMessage(true);
-        setIsLoading(false);
+            const formData = elements?.reduce((acc: Record<string, string | boolean>, field) => {
+                acc[field.name] = field.value;
+                return acc;
+            }, {});
+
+            if (formData) {
+                const response = await submitForm(formData);
+                console.log('Server Response:', response);
+                setShowMessage(true);
+            }
+        } catch (error) {
+            console.error('Ошибка при отправке формы:', error);
+            alert('Произошла ошибка при отправке формы. Попробуйте снова.');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleShowForm = () => {
         setShowMessage(false);
     };
 
-
+    useEffect(() => {
+        setFormValid(Object.values(errors).every((err) => !err));
+    }, [errors]);
 
     return (
         <formContext.Provider
             value={{
                 handleChange,
-                handleBlur,
+                handleBlur: (id: string) => handleBlur(id, elements, dirtyFields, setDirtyFields, setErrors),
                 getDirty: (name: string) => dirtyFields[name] || false,
                 errors,
                 formValid,
@@ -147,7 +125,6 @@ const AuthComponent: React.FC = () => {
         >
             <>
                 <div className={cls.imgWrapper}>
-                    <img className={cls.img} src={img} alt=""/>
                 </div>
                 <div className={`${cls.fromWrapper} ${showMessage ? cls.Column : ''}`}>
                     {isLoading ? (
@@ -171,9 +148,9 @@ const AuthComponent: React.FC = () => {
                         </>
                     ) : (
                         <form className={cls.Form} onSubmit={handleSubmit}>
-                            {elements?.map((element, index) => {
-                                return <Element key={index} field={element}/>;
-                            })}
+                            {elements?.map((element, index) => (
+                                <Element key={index} field={element}/>
+                            ))}
                             <MyButton
                                 className={cls.buttonSelf}
                                 type="submit"

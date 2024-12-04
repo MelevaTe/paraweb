@@ -7,6 +7,7 @@ export interface FormField {
     type: string;
     label: string;
     required: boolean;
+    placeholder?: string;
     name: string;
     value: string | boolean;
     pattern?: string;

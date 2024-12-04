@@ -7,10 +7,11 @@ const MyInput: React.FC<{
     field_type: string;
     field_label: string;
     field_required: boolean;
+    field_placeholder: string;
     field_name: string;
     field_value: string;
     field_error?: string;
-}> = ({ field_type, field_label, field_required, field_name, field_value }) => {
+}> = ({ field_type, field_label, field_required, field_name, field_value, field_placeholder }) => {
     const { handleChange, handleBlur, getDirty, errors } = useContext(formContext);
 
     const isDirty = getDirty(field_name);
@@ -27,7 +28,7 @@ const MyInput: React.FC<{
                     className={`${cls.input}`}
                     type={field_type}
                     required={field_required}
-                    placeholder={`Ваш ${field_name}`}
+                    placeholder={field_placeholder}
                     value={field_value}
                     name={field_name}
                     onChange={(event) => handleChange(field_name, event)}
@@ -49,4 +50,3 @@ const MyInput: React.FC<{
 };
 
 export default MyInput;
-

@@ -8,4 +8,3 @@ export const formContext = createContext<FormContextType>({
     errors: {},
     formValid: false
 });
-
